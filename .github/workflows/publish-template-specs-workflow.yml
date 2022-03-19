@@ -5,16 +5,18 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'templateSpecs/appService/**'
 
 env:
   AZURE_RESOURCEGROUP_NAME: ToysReusable
   ENVIRONMENT_TYPE: Prod
   AZURE_REGION: westus
-  TEMPLATE_SPEC_NAME: TemplateSpecName # TODO Fix the name
+  TEMPLATE_SPEC_NAME: appService
   TEMPLATE_SPEC_VERSION: ${{ github.run.event.workflow_number }}
-  TEMPLATE_FILENAME: templateSpec.json # TODO Fix the name
-  TEMPLATE_DISPLAY_NAME: "MyDisplayName" # TODO Fix the name
-  TEMPLATE_DESCRIPTION: "Simple template spec" # TODO Fix the name
+  TEMPLATE_FILENAME: appService.json
+  TEMPLATE_DISPLAY_NAME: "Azure App Service"
+  TEMPLATE_DESCRIPTION: "Security-hardened App Service."
 
 jobs:
   lint:
@@ -22,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run Bicep linter
-      run: az bicep build --file deploy/main.bicep
+      run: az bicep build --file templateSpecs/appService/${{ env.TEMPLATE_FILENAME }}
 
   publish:
     runs-on: ubuntu-latest
@@ -38,4 +40,7 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          run: az ts create -g ${{ env.AZURE_RESOURCEGROUP_NAME }} --name ${{ env.TEMPLATE_SPEC_NAME }} -v ${{ env.TEMPLATE_SPEC_VERSION }} -l ${{ env.AZURE_REGION }} --template-file ${{ env.TEMPLATE_FILENAME }} --display-name ${{ env.TEMPLATE_DISPLAY_NAME }} --description ${{ env.TEMPLATE_DESCRIPTION }}
+          run: az ts create -g ${{ env.AZURE_RESOURCEGROUP_NAME }} \
+          --name ${{ env.TEMPLATE_SPEC_NAME }} -v ${{ env.TEMPLATE_SPEC_VERSION }} \
+          -l ${{ env.AZURE_REGION }} --template-file ${{ env.TEMPLATE_FILENAME }} \
+          --display-name ${{ env.TEMPLATE_DISPLAY_NAME }} --description ${{ env.TEMPLATE_DESCRIPTION }}
