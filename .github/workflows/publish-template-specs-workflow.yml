@@ -38,7 +38,7 @@ jobs:
     - uses: azure/CLI@v1
       name: Publish Template Spec
       with:
-        azcliversion: 2.0.72
+        azcliversion: 2.34.1
         inlineScript: |
           az ts create -g ${{ env.AZURE_RESOURCEGROUP_NAME }} --name ${{ env.TEMPLATE_SPEC_NAME }} -v ${{ env.TEMPLATE_SPEC_VERSION }} -l ${{ env.AZURE_REGION }} --template-file ${{ env.TEMPLATE_FILENAME }} --display-name ${{ env.TEMPLATE_DISPLAY_NAME }} --description ${{ env.TEMPLATE_DESCRIPTION }}
           
