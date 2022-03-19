@@ -1,3 +1,5 @@
+// App Service Template Spec
+
 @description('Web app name.')
 @minLength(2)
 param webAppName string = 'webApp-${uniqueString(resourceGroup().id)}'
