@@ -1,4 +1,4 @@
-// App Service Template Spec v0.2
+// App Service Template Spec v0.3
 
 @description('Web app name.')
 @minLength(2)
