@@ -38,4 +38,4 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          run: az ts create -g ${{ AZURE_RESOURCEGROUP_NAME }} --name ${{ TEMPLATE_SPEC_NAME }} -v ${{ TEMPLATE_SPEC_VERSION }} -l ${{ AZURE_REGION }} --template-file ${{ TEMPLATE_FILENAME }} --display-name ${{ TEMPLATE_DISPLAY_NAME }} --description ${{ TEMPLATE_DESCRIPTION }}
+          run: az ts create -g ${{ env.AZURE_RESOURCEGROUP_NAME }} --name ${{ env.TEMPLATE_SPEC_NAME }} -v ${{ env.TEMPLATE_SPEC_VERSION }} -l ${{ env.AZURE_REGION }} --template-file ${{ env.TEMPLATE_FILENAME }} --display-name ${{ env.TEMPLATE_DISPLAY_NAME }} --description ${{ env.TEMPLATE_DESCRIPTION }}
