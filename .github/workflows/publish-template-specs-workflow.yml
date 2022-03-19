@@ -14,7 +14,7 @@ env:
   AZURE_REGION: westus
   TEMPLATE_SPEC_NAME: appService
   TEMPLATE_SPEC_VERSION: ${{ github.run.event.workflow_number }}
-  TEMPLATE_FILENAME: appService.json
+  TEMPLATE_FILENAME: appService.bicep
   TEMPLATE_DISPLAY_NAME: "Azure App Service"
   TEMPLATE_DESCRIPTION: "Security-hardened App Service."
 
