@@ -39,6 +39,6 @@ jobs:
       with:
         azcliversion: 2.34.1
         inlineScript: |
-          az ts create -g $AZURE_RESOURCEGROUP_NAME --name $TEMPLATE_SPEC_NAME -v $GITHUB_RUN_NUMBER -l $AZURE_REGION --template-file $TEMPLATE_FILENAME --display-name $TEMPLATE_DISPLAY_NAME --description $TEMPLATE_DESCRIPTION
+          az ts create -g $AZURE_RESOURCEGROUP_NAME --name $TEMPLATE_SPEC_NAME -v $GITHUB_RUN_NUMBER -l $AZURE_REGION --template-file templateSpecs/appService/$TEMPLATE_FILENAME --display-name $TEMPLATE_SPEC_NAME
           
     
