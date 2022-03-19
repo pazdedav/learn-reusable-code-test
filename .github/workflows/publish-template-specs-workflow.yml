@@ -1,0 +1,41 @@
+name: publish-bicep-template-specs
+concurrency: toy-company
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AZURE_RESOURCEGROUP_NAME: ToysReusable
+  ENVIRONMENT_TYPE: Prod
+  AZURE_REGION: westus
+  TEMPLATE_SPEC_NAME: TemplateSpecName # TODO Fix the name
+  TEMPLATE_SPEC_VERSION: ${{ github.run.event.workflow_number }}
+  TEMPLATE_FILENAME: templateSpec.json # TODO Fix the name
+  TEMPLATE_DISPLAY_NAME: "MyDisplayName" # TODO Fix the name
+  TEMPLATE_DESCRIPTION: "Simple template spec" # TODO Fix the name
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Bicep linter
+      run: az bicep build --file deploy/main.bicep
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: [lint]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      name: Sign in to Azure
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/CLI@v2
+      name: Publish Template Spec
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          run: az ts create -g ${{ AZURE_RESOURCEGROUP_NAME }} --name ${{ TEMPLATE_SPEC_NAME }} -v ${{ TEMPLATE_SPEC_VERSION }} -l ${{ AZURE_REGION }} --template-file ${{ TEMPLATE_FILENAME }} --display-name ${{ TEMPLATE_DISPLAY_NAME }} --description ${{ TEMPLATE_DESCRIPTION }}
