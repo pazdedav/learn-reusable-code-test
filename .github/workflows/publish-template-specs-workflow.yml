@@ -14,8 +14,8 @@ env:
   AZURE_REGION: westus
   TEMPLATE_SPEC_NAME: appService
   TEMPLATE_FILENAME: appService.bicep
-  TEMPLATE_DISPLAY_NAME: "Azure App Service"
-  TEMPLATE_DESCRIPTION: "Security-hardened App Service."
+  TEMPLATE_DISPLAY_NAME: 'Azure App Service'
+  TEMPLATE_DESCRIPTION: 'Security-hardened App Service.'
 
 jobs:
   lint:
