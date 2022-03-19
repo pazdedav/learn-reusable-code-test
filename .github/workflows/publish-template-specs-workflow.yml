@@ -35,7 +35,7 @@ jobs:
       name: Sign in to Azure
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-    - uses: azure/CLI@v2
+    - uses: azure/CLI@v1
       name: Publish Template Spec
       with:
         azcliversion: 2.0.72
@@ -44,3 +44,5 @@ jobs:
           --name ${{ env.TEMPLATE_SPEC_NAME }} -v ${{ env.TEMPLATE_SPEC_VERSION }} \
           -l ${{ env.AZURE_REGION }} --template-file ${{ env.TEMPLATE_FILENAME }} \
           --display-name ${{ env.TEMPLATE_DISPLAY_NAME }} --description ${{ env.TEMPLATE_DESCRIPTION }}
+          
+    
